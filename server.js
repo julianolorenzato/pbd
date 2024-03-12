@@ -1,6 +1,11 @@
 import Fastify from 'fastify'
 import {
 	createAnimal,
+	createClass,
+	createFamily,
+	createGender,
+	createOrder,
+	createSpecie,
 	createTreater,
 	createTreatment,
 	retrieveAnimals,
@@ -30,15 +35,33 @@ fastify.post('/animais', async (req, res) => {
 	const { nome, idade, status_saude } = req.body
 	return await createAnimal(nome, idade, status_saude)
 })
-
 fastify.post('/tratadores', async (req, res) => {
 	const { nome, cpf, data_entrada, data_saida } = req.body
 	return await createTreater(nome, cpf, data_entrada, data_saida)
 })
-
 fastify.post('/tratamentos', async (req, res) => {
 	const { animal_id, tratador_id, descricao, data } = req.body
 	return await createTreatment(animal_id, tratador_id, descricao, data)
+})
+fastify.post('/classes', async (req, res) => {
+	const { nome } = req.body
+	return await createClass(nome)
+})
+fastify.post('/ordens', async (req, res) => {
+	const { nome, classe_id } = req.body
+	return await createOrder(nome, classe_id)
+})
+fastify.post('/familias', async (req, res) => {
+	const { nome, ordem_id } = req.body
+	return await createFamily(nome, ordem_id)
+})
+fastify.post('/generos', async (req, res) => {
+	const { nome, familia_id } = req.body
+	return await createGender(nome, familia_id)
+})
+fastify.post('/especies', async (req, res) => {
+	const { nome, genero_id } = req.body
+	return await createSpecie(nome, genero_id)
 })
 
 fastify.listen({ port: 3000 })
