@@ -46,10 +46,10 @@ export async function retrieveSpecies() {
 	return await client.query('SELECT * FROM especies')
 }
 
-export async function createAnimal(nome, idade, status_saude) {
+export async function createAnimal(nome, idade, status_saude, especie_id) {
 	await client.query(
-		'INSERT INTO animais VALUES (gen_random_uuid(), $1, $2, $3)',
-		[nome, idade, status_saude]
+		'INSERT INTO animais (id, nome, idade, status_de_saude, especie_id) VALUES (gen_random_uuid(), $1, $2, $3, $4)',
+		[nome, idade, status_saude, especie_id]
 	)
 }
 
@@ -95,7 +95,7 @@ export async function createGender(nome, familia_id) {
 }
 export async function createSpecie(nome, genero_id) {
 	await client.query(
-		'INSERT INTO especies (id, nome, especie_id) VALUES (gen_random_uuid(), $1, $2)',
+		'INSERT INTO especies (id, nome, genero_id) VALUES (gen_random_uuid(), $1, $2)',
 		[nome, genero_id]
 	)
 }
@@ -105,4 +105,8 @@ export async function createSection(nome, descricao, especie_id) {
 		'INSERT INTO secoes (id, nome, descricao, especie_id) VALUES (gen_random_uuid(), $1, $2, $3)',
 		[nome, descricao, especie_id]
 	)
+}
+
+export async function remove(table, id) {
+	await client.query(`DELETE FROM ${table} WHERE id=$1`, [id])
 }
