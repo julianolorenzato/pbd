@@ -1,7 +1,8 @@
 import Fastify from 'fastify'
-import pg from 'pg'
 import {
 	createAnimal,
+	createTreater,
+	createTreatment,
 	retrieveAnimals,
 	retrieveClasses,
 	retrieveFamilies,
@@ -12,16 +13,6 @@ import {
 	retrieveTreaters,
 	retrieveTreatments
 } from './queries'
-
-const client = new pg.Client({
-	host: 'localhost',
-	port: 5432,
-	user: 'root',
-	password: 'secret',
-	database: 'ong_animais'
-})
-
-await client.connect()
 
 const fastify = Fastify({ logger: true })
 
@@ -37,12 +28,17 @@ fastify.get('/especies', async (req, res) => await retrieveSpecies())
 
 fastify.post('/animais', async (req, res) => {
 	const { nome, idade, status_saude } = req.body
-	return createAnimal(nome, idade, status_saude)
+	return await createAnimal(nome, idade, status_saude)
 })
 
 fastify.post('/tratadores', async (req, res) => {
-	const { nome, data_entrada, data_saida } = req.body
-	return 
+	const { nome, cpf, data_entrada, data_saida } = req.body
+	return await createTreater(nome, cpf, data_entrada, data_saida)
+})
+
+fastify.post('/tratamentos', async (req, res) => {
+	const { animal_id, tratador_id, descricao, data } = req.body
+	return await createTreatment(animal_id, tratador_id, descricao, data)
 })
 
 fastify.listen({ port: 3000 })

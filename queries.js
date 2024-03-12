@@ -52,3 +52,17 @@ export async function createAnimal(nome, idade, status_saude) {
 		[nome, idade, status_saude]
 	)
 }
+
+export async function createTreater(nome, cpf, data_entrada, data_saida) {
+	await client.query(
+		'INSERT INTO tratadores VALUES (gen_random_uuid(), $1, $2, $3, $4)',
+		[nome, cpf, data_entrada, data_saida]
+	)
+}
+
+export async function createTreatment(animal_id, tratador_id, descricao, data) {
+	await client.query(
+		'INSERT INTO tratamentos (animal_id, tratador_id, descricao, data) VALUES (gen_random_uuid(), $1, $2, $3, $4)',
+		[animal_id, tratador_id, descricao, data]
+	)
+}
