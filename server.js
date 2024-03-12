@@ -12,7 +12,7 @@ import {
 	retrieveSpecies,
 	retrieveTreaters,
 	retrieveTreatments
-} from './queries'
+} from './queries.js'
 
 const fastify = Fastify({ logger: true })
 
