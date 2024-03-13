@@ -15,35 +15,35 @@ export async function retrieveAnimals() {
 }
 
 export async function retrieveTreaters() {
-	return await client.query('SELECT * FROM tratadores')
+	return await client.query('SELECT * FROM tratadores').then(res => res.rows)
 }
 
 export async function retrieveTreatments() {
-	return await client.query('SELECT * FROM tratamentos')
+	return await client.query('SELECT * FROM tratamentos').then(res => res.rows)
 }
 
 export async function retrieveSections() {
-	return await client.query('SELECT * FROM sections')
+	return await client.query('SELECT * FROM sections').then(res => res.rows)
 }
 
 export async function retrieveClasses() {
-	return await client.query('SELECT * FROM classes')
+	return await client.query('SELECT * FROM classes').then(res => res.rows)
 }
 
 export async function retrieveOrders() {
-	return await client.query('SELECT * FROM ordens')
+	return await client.query('SELECT * FROM ordens').then(res => res.rows)
 }
 
 export async function retrieveFamilies() {
-	return await client.query('SELECT * FROM familias')
+	return await client.query('SELECT * FROM familias').then(res => res.rows)
 }
 
 export async function retrieveGenders() {
-	return await client.query('SELECT * FROM generos')
+	return await client.query('SELECT * FROM generos').then(res => res.rows)
 }
 
 export async function retrieveSpecies() {
-	return await client.query('SELECT * FROM especies')
+	return await client.query('SELECT * FROM especies').then(res => res.rows)
 }
 
 export async function createAnimal(nome, idade, status_saude, especie_id) {
@@ -108,5 +108,35 @@ export async function createSection(nome, descricao, especie_id) {
 }
 
 export async function remove(table, id) {
-	await client.query(`DELETE FROM ${table} WHERE id=$1`, [id])
+	switch (table) {
+		case 'animais':
+			await client.query(`DELETE FROM animais WHERE id=$1`, [id])
+			break
+		case 'secoes':
+			await client.query(`DELETE FROM secoes WHERE id=$1`, [id])
+			break
+		case 'tratadores':
+			await client.query(`DELETE FROM tratadores WHERE id=$1`, [id])
+			break
+		case 'tratamentos':
+			await client.query(`DELETE FROM tratamentos WHERE id=$1`, [id])
+			break
+		case 'classes':
+			await client.query(`DELETE FROM classes WHERE id=$1`, [id])
+			break
+		case 'ordens':
+			await client.query(`DELETE FROM ordens WHERE id=$1`, [id])
+			break
+		case 'familias':
+			await client.query(`DELETE FROM familias WHERE id=$1`, [id])
+			break
+		case 'generos':
+			await client.query(`DELETE FROM generos WHERE id=$1`, [id])
+			break
+		case 'especies':
+			await client.query(`DELETE FROM especies WHERE id=$1`, [id])
+			break
+		default:
+			break
+	}
 }

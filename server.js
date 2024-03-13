@@ -72,39 +72,39 @@ fastify.post('/secoes', async (req, res) => {
 
 fastify.delete(
 	'/animais/:id',
-	async (req, res) => await remove('animais', req.query.id)
+	async (req, res) => await remove('animais', req.params.id)
 )
 fastify.delete(
 	'/tratadores/:id',
-	async (req, res) => await remove('tratadores', req.query.id)
+	async (req, res) => await remove('tratadores', req.params.id)
 )
 fastify.delete(
 	'/tratamentos/:id',
-	async (req, res) => await remove('tratamentos', req.query.id)
+	async (req, res) => await remove('tratamentos', req.params.id)
 )
 fastify.delete(
 	'/secoes/:id',
-	async (req, res) => await remove('secoes', req.query.id)
+	async (req, res) => {await remove('secoes', req.params.id)}
 )
 fastify.delete(
 	'/classes/:id',
-	async (req, res) => await remove('classes', req.query.id)
+	async (req, res) => await remove('classes', req.params.id)
 )
 fastify.delete(
 	'/ordens/:id',
-	async (req, res) => await remove('ordens', req.query.id)
+	async (req, res) => await remove('ordens', req.params.id)
 )
 fastify.delete(
 	'/familias/:id',
-	async (req, res) => await remove('familias', req.query.id)
+	async (req, res) => await remove('familias', req.params.id)
 )
 fastify.delete(
 	'/generos/:id',
-	async (req, res) => await remove('generos', req.query.id)
+	async (req, res) => await remove('generos', req.params.id)
 )
 fastify.delete(
 	'/especies/:id',
-	async (req, res) => await remove('especies', req.query.id)
+	async (req, res) => await remove('especies', req.params.id)
 )
 
 fastify.listen({ port: 3000 })
